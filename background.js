@@ -1,4 +1,3 @@
-// Create a context menu item
 chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.create({
     id: "copyAsMarkdownTitleHighlight",
@@ -7,12 +6,10 @@ chrome.runtime.onInstalled.addListener(() => {
   });
 });
 
-// Handle context menu click
 chrome.contextMenus.onClicked.addListener((info, tab) => {
   if (info.menuItemId === "copyAsMarkdownTitleHighlight" && info.selectionText) {
     const markdownLink = `[${info.selectionText}](${tab.url})`;
-    
-    // Execute script in the current tab to copy text to clipboard
+
     chrome.scripting.executeScript({
       target: { tabId: tab.id },
       func: textToCopy => {

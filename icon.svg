@@ -1,14 +1,20 @@
 <svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
   <!-- Background -->
-  <rect x="4" y="4" width="120" height="120" rx="16" fill="#4285F4" />
+  <rect x="4" y="4" width="120" height="120" rx="16" fill="#7c3aed" />
   
+  <!-- Back Document -->
+  <rect x="31.5" y="30.7" width="70" height="82" rx="8" fill="#FFCC00" />
+  
+  <!-- Front Document -->
+  <rect x="25" y="25" width="70" height="82" rx="8" fill="#FFFFFF" />
+  
+  <!-- Markdown Icon inside Front Document -->
   <!-- Brackets representing Markdown -->
-  <path d="M30 40 L45 40 L45 88 L30 88 L30 40 Z" fill="none" stroke="white" stroke-width="5" />
-  <path d="M98 40 L83 40 L83 88 L98 88 L98 40 Z" fill="none" stroke="white" stroke-width="5" />
+  <path d="M35 45 L45 45 L45 85 L35 85 L35 45 Z" fill="none" stroke="#5A5A5A" stroke-width="3" />
+  <path d="M85 45 L75 45 L75 85 L85 85 L85 45 Z" fill="none" stroke="#5A5A5A" stroke-width="3" />
   
-  <!-- Horizontal line representing highlighted text -->
-  <line x1="45" y1="64" x2="83" y2="64" stroke="white" stroke-width="5" />
+  <!-- M in middle -->
+  <path d="M50 45 L55 65 L60 55 L65 65 L70 45" fill="none" stroke="#5A5A5A" stroke-width="3" stroke-linejoin="round" />
   
-  <!-- Text cursor symbol -->
-  <rect x="58" y="48" width="12" height="32" fill="#FFCC00" />
+  <!-- No horizontal lines -->
 </svg>

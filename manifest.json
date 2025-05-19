@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Copy as Markdown Title Highlight",
+  "name": "select-for-obsidian",
   "version": "1.0",
-  "description": "Copy highlighted text as a Markdown link with the current page URL",
+  "description": "Text selection helpers for Obsidian",
   "permissions": ["contextMenus", "clipboardWrite", "scripting"],
   "host_permissions": ["<all_urls>"],
   "background": {
