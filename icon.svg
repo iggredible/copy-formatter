@@ -1,0 +1,14 @@
+<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect x="4" y="4" width="120" height="120" rx="16" fill="#4285F4" />
+  
+  <!-- Brackets representing Markdown -->
+  <path d="M30 40 L45 40 L45 88 L30 88 L30 40 Z" fill="none" stroke="white" stroke-width="5" />
+  <path d="M98 40 L83 40 L83 88 L98 88 L98 40 Z" fill="none" stroke="white" stroke-width="5" />
+  
+  <!-- Horizontal line representing highlighted text -->
+  <line x1="45" y1="64" x2="83" y2="64" stroke="white" stroke-width="5" />
+  
+  <!-- Text cursor symbol -->
+  <rect x="58" y="48" width="12" height="32" fill="#FFCC00" />
+</svg>

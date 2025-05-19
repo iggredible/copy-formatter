@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "Copy as Markdown Title Highlight",
+  "version": "1.0",
+  "description": "Copy highlighted text as a Markdown link with the current page URL",
+  "permissions": ["contextMenus", "clipboardWrite", "scripting"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}
