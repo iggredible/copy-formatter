@@ -1,23 +1,41 @@
-chrome.runtime.onInstalled.addListener(() => {
-  chrome.contextMenus.create({
-    id: "copyAsMarkdownTitleHighlight",
-    title: "Copy as Markdown Title Highlight",
-    contexts: ["selection"]
-  });
+import { createContextMenus } from './src/menus.js';
+import { applyFormatter } from './src/formatters.js';
+import { copyToClipboard } from './src/clipboard.js';
+import { getMenuItems, setMenuItems } from './src/storage.js';
+import { defaultMenuItems } from './src/defaultMenuItems.js';
+
+chrome.runtime.onInstalled.addListener(async (details) => {
+  if (details.reason === 'install' || details.reason === 'update') {
+    console.log('installing menu items')
+    // Initialize storage with defaults on install or update
+    const existingMenuItems = await getMenuItems();
+    
+    // Only set if not already present
+    if (existingMenuItems.length === 0) {
+      await setMenuItems(defaultMenuItems);
+    }
+  }
+  
+  // Create context menus
+  await createContextMenus();
 });
 
-chrome.contextMenus.onClicked.addListener((info, tab) => {
-  if (info.menuItemId === "copyAsMarkdownTitleHighlight" && info.selectionText) {
-    const markdownLink = `[${info.selectionText}](${tab.url})`;
+chrome.contextMenus.onClicked.addListener(async (info, tab) => {
+  if (!info.selectionText) return;
 
-    chrome.scripting.executeScript({
-      target: { tabId: tab.id },
-      func: textToCopy => {
-        navigator.clipboard.writeText(textToCopy)
-          .then(() => console.log('Text copied to clipboard'))
-          .catch(err => console.error('Failed to copy text: ', err));
-      },
-      args: [markdownLink]
-    });
+  const formattedText = await applyFormatter(
+    info.menuItemId,
+    info.selectionText,
+    tab.url,
+    tab.title
+  );
+
+  copyToClipboard(tab, formattedText);
+});
+
+// Listen for storage changes to update menus
+chrome.storage.onChanged.addListener((changes, namespace) => {
+  if (namespace === 'local' && changes.menuItems) {
+    createContextMenus();
   }
 });

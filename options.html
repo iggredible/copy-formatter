@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Select for Obsidian - Configuration</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Select for Obsidian Configuration</h1>
+    
+    <section>
+      <h2>Menu Items</h2>
+      <p class="description">Each menu item has a name and a template. Use {selectedText}, {pageUrl}, and {pageTitle} as placeholders in your templates.</p>
+      <div id="menuItems" class="items-list"></div>
+      <button id="addMenuItem" class="btn btn-primary">+ Add Menu Item</button>
+    </section>
+
+    <div id="status" class="status"></div>
+  </div>
+
+  <!-- Add/Edit Modal -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <h3 id="modalTitle"></h3>
+      <form id="modalForm">
+        <div class="form-group">
+          <label for="itemId">ID (unique identifier)</label>
+          <input type="text" id="itemId" required pattern="[a-zA-Z0-9_]+" title="Only letters, numbers, and underscores">
+        </div>
+        <div class="form-group">
+          <label for="itemName">Name</label>
+          <input type="text" id="itemName" required>
+        </div>
+        <div class="form-group" id="templateGroup">
+          <label for="itemTemplate">
+            Template
+            <span class="help-text">Use {selectedText}, {pageUrl}, {pageTitle}</span>
+          </label>
+          <textarea id="itemTemplate" rows="4"></textarea>
+        </div>
+        <div class="form-group" id="enabledGroup">
+          <label>
+            <input type="checkbox" id="itemEnabled" checked>
+            Enabled
+          </label>
+        </div>
+        <div class="modal-buttons">
+          <button type="submit" class="btn btn-primary">Save</button>
+          <button type="button" id="cancelModal" class="btn btn-secondary">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="options.js" type="module"></script>
+</body>
+</html>

@@ -1,16 +1,26 @@
 {
   "manifest_version": 3,
-  "name": "select-for-obsidian",
+  "name": "select-copy-paste-formatter",
   "version": "1.0",
-  "description": "Text selection helpers for Obsidian",
-  "permissions": ["contextMenus", "clipboardWrite", "scripting"],
+  "description": "Format copy pasted text",
+  "permissions": ["contextMenus", "clipboardWrite", "scripting", "storage"],
   "host_permissions": ["<all_urls>"],
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "background.js",
+    "type": "module"
   },
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
-  }
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "options_page": "options.html"
 }
