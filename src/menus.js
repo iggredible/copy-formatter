@@ -16,13 +16,17 @@ export async function createContextMenus() {
 
   // Create submenu items for enabled items only
   menuItems.forEach(item => {
-    if (item.enabled) {
-      chrome.contextMenus.create({
-        id: item.id,
-        parentId: "selectForObsidian",
-        title: item.name,
-        contexts: ["selection"]
-      });
+    if (item.enabled && item.name && item.id) {
+      try {
+        chrome.contextMenus.create({
+          id: item.id,
+          parentId: "selectForObsidian",
+          title: item.name,
+          contexts: ["selection"]
+        });
+      } catch (error) {
+        console.error(`Failed to create menu item ${item.id}:`, error);
+      }
     }
   });
 }

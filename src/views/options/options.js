@@ -1,4 +1,4 @@
-import { getMenuItems, setMenuItems } from './src/storage.js';
+import { getMenuItems, setMenuItems } from '../../storage.js';
 
 let currentMenuItems = [];
 let editingItem = null;
@@ -18,6 +18,7 @@ function setupEventListeners() {
   document.getElementById('addMenuItem').addEventListener('click', () => showModal());
   document.getElementById('cancelModal').addEventListener('click', hideModal);
   document.getElementById('modalForm').addEventListener('submit', handleSave);
+  document.getElementById('resetToDefaults').addEventListener('click', resetToDefaults);
   
   // Close modal when clicking outside
   document.getElementById('modal').addEventListener('click', (e) => {
@@ -49,10 +50,14 @@ function createItemElement(item) {
       <div class="item-template">${escapeHtml(item.template)}</div>
     </div>
     <div class="item-actions">
-      <button class="btn btn-sm" onclick="window.editItem('${item.id}')">Edit</button>
-      <button class="btn btn-sm btn-danger" onclick="window.deleteItem('${item.id}')">Delete</button>
+      <button class="btn btn-sm edit-btn" data-id="${item.id}">Edit</button>
+      <button class="btn btn-sm btn-danger delete-btn" data-id="${item.id}">Delete</button>
     </div>
   `;
+  
+  // Add event listeners to buttons
+  div.querySelector('.edit-btn').addEventListener('click', () => editItem(item.id));
+  div.querySelector('.delete-btn').addEventListener('click', () => deleteItem(item.id));
   
   return div;
 }
@@ -121,14 +126,14 @@ async function handleSave(e) {
   await loadData();
 }
 
-window.editItem = function(id) {
+function editItem(id) {
   const item = currentMenuItems.find(i => i.id === id);
   if (item) {
     showModal(item);
   }
-};
+}
 
-window.deleteItem = async function(id) {
+async function deleteItem(id) {
   if (!confirm('Are you sure you want to delete this menu item?')) {
     return;
   }
@@ -138,7 +143,7 @@ window.deleteItem = async function(id) {
   
   showStatus('Deleted successfully!');
   await loadData();
-};
+}
 
 function showStatus(message) {
   const status = document.getElementById('status');
@@ -153,4 +158,16 @@ function escapeHtml(text) {
   const div = document.createElement('div');
   div.textContent = text;
   return div.innerHTML;
+}
+
+async function resetToDefaults() {
+  if (!confirm('Reset all menu items to defaults? This will remove any custom items you\'ve created.')) {
+    return;
+  }
+  
+  const { defaultMenuItems } = await import('../../defaultMenuItems.js');
+  await setMenuItems(defaultMenuItems);
+  
+  showStatus('Reset to defaults!');
+  await loadData();
 }

@@ -1,13 +1,8 @@
-# `copy-paste-formatter`
+# `select-for-obsidian`
 
-### Copy as markdown
+Templated copy-paste for obsidian (or others)
 
-Copy highlighted text as a Markdown link with the current page's URL.
+## TODO
 
-### TODO: More select features
+Create a keyboard shortcut, so user can use Vimium for a complete mouseless experience!
 
-# Misc
-```
-chrome.storage.local.get(['formatters'], (result) => console.log(result.formatters))
-chrome.storage.local.get(['menuItems'], (result) => console.log(result.menuItems))
-```

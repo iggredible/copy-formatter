@@ -5,8 +5,9 @@ import { getMenuItems, setMenuItems } from './src/storage.js';
 import { defaultMenuItems } from './src/defaultMenuItems.js';
 
 chrome.runtime.onInstalled.addListener(async (details) => {
-  if (details.reason === 'install' || details.reason === 'update') {
-    console.log('installing menu items')
+  // if (details.reason === 'install' || details.reason === 'update') {
+  if (details.reason === 'install') {
+    console.log('installing default menu items')
     // Initialize storage with defaults on install or update
     const existingMenuItems = await getMenuItems();
     

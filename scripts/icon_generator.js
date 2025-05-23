@@ -1,18 +1,20 @@
 // npm install sharp
 // node icon_generator.js
+// Need to have `icon.svg` in the root path.
 
 const fs = require('fs');
 const sharp = require('sharp');
 const path = require('path');
 
-const iconsDir = path.join(__dirname, 'icons');
+const projectRoot = path.join(__dirname, '..');
+const iconsDir = path.join(projectRoot, 'icons');
 if (!fs.existsSync(iconsDir)) {
   fs.mkdirSync(iconsDir);
 }
 
 const sizes = [16, 48, 128];
 
-const svgBuffer = fs.readFileSync(path.join(__dirname, 'icon.svg'));
+const svgBuffer = fs.readFileSync(path.join(projectRoot, 'icon.svg'));
 
 sizes.forEach(size => {
   sharp(svgBuffer)
