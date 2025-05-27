@@ -40,3 +40,25 @@ chrome.storage.onChanged.addListener((changes, namespace) => {
     createContextMenus();
   }
 });
+
+// Handle messages from content script
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.action === 'getMenuItems') {
+    getMenuItems().then(menuItems => {
+      sendResponse({ menuItems });
+    });
+    return true; // Will respond asynchronously
+  }
+  
+  if (request.action === 'formatText') {
+    applyFormatter(
+      request.itemId,
+      request.selectedText,
+      request.pageUrl,
+      request.pageTitle
+    ).then(formattedText => {
+      sendResponse({ formattedText });
+    });
+    return true; // Will respond asynchronously
+  }
+});
