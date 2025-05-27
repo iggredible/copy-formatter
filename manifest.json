@@ -15,7 +15,7 @@
     "128": "icons/icon128.png"
   },
   "action": {
-    "default_popup": "src/views/popup/popup.html",
+    "default_popup": "src/views/popup/action/popup.html",
     "default_icon": {
       "16": "icons/icon16.png",
       "48": "icons/icon48.png",
@@ -26,8 +26,8 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["src/content.js"],
-      "css": ["src/content.css"]
+      "js": ["src/views/popup/content/content.js"],
+      "css": ["src/views/popup/content/content.css"]
     }
   ]
 }
