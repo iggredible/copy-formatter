@@ -4,7 +4,7 @@ let currentPopup = null;
 document.addEventListener('keydown', async (event) => {
   if (event.key === '"' && !isPopupOpen) {
     event.preventDefault();
-    
+
     const selection = window.getSelection();
     if (selection.rangeCount > 0) {
       const range = selection.getRangeAt(0);
@@ -54,7 +54,7 @@ function showPopup(menuItems, rect, selectedText) {
         });
         itemDiv.classList.add('selected');
       });
-      
+
       popup.appendChild(itemDiv);
     });
   }
@@ -110,22 +110,25 @@ function handleKeyNavigation(event) {
   const selectedItem = currentPopup.querySelector('.scpf-menu-item.selected');
   let currentIndex = selectedItem ? parseInt(selectedItem.dataset.index) : -1;
   
-  switch(event.key) {
-    case 'ArrowDown':
+  const isDown = event.key === 'ArrowDown' || (event.key === 'n' && event.ctrlKey);
+  const isUp = event.key === 'ArrowUp' || (event.key === 'p' && event.ctrlKey);
+  
+  switch(true) {
+    case isDown:
       event.preventDefault();
       currentIndex = (currentIndex + 1) % items.length;
       break;
-    case 'ArrowUp':
+    case isUp:
       event.preventDefault();
       currentIndex = currentIndex <= 0 ? items.length - 1 : currentIndex - 1;
       break;
-    case 'Enter':
+    case event.key === 'Enter':
       event.preventDefault();
       if (selectedItem) {
         selectedItem.click();
       }
       return;
-    case 'Escape':
+    case event.key === 'Escape':
       event.preventDefault();
       closePopup();
       return;
