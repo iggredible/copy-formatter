@@ -3,6 +3,22 @@ let currentPopup = null;
 
 document.addEventListener('keydown', async (event) => {
   if (event.key === '"' && !isPopupOpen) {
+    const activeElement = document.activeElement;
+    const isInputField = activeElement && (
+      activeElement.tagName === 'INPUT' ||
+      activeElement.tagName === 'TEXTAREA' ||
+      activeElement.isContentEditable ||
+      activeElement.getAttribute('contenteditable') === 'true' ||
+      activeElement.getAttribute('role') === 'textbox' ||
+      activeElement.getAttribute('role') === 'searchbox' ||
+      activeElement.getAttribute('role') === 'combobox'
+    );
+    
+    // Don't trigger popup if user is typing in an input field
+    if (isInputField) {
+      return;
+    }
+    
     event.preventDefault();
 
     const selection = window.getSelection();
