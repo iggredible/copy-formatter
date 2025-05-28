@@ -10,7 +10,7 @@ export async function createContextMenus() {
   // Create parent menu
   chrome.contextMenus.create({
     id: "selectForObsidian",
-    title: "Select for Obsidian",
+    title: "Copy Formatter",
     contexts: ["selection"]
   });
 
