@@ -1,16 +1,14 @@
 import { getMenuItemById } from './storage.js';
 
-export async function applyFormatter(menuItemId, selectedText, pageUrl, pageTitle) {
-  const menuItem = await getMenuItemById(menuItemId);
+export async function applyFormatter(info, tab) {
+  const menuItem = await getMenuItemById(info.menuItemId);
   
   if (!menuItem || !menuItem.template) {
-    // Fallback to plain text if menu item not found
-    return selectedText;
+    return info.selectionText;
   }
   
-  // Replace template variables
   return menuItem.template
-    .replace(/{selectedText}/g, selectedText)
-    .replace(/{pageUrl}/g, pageUrl)
-    .replace(/{pageTitle}/g, pageTitle);
+    .replace(/{selectedText}/g, info.selectionText)
+    .replace(/{pageUrl}/g, tab.url)
+    .replace(/{pageTitle}/g, tab.title);
 }
