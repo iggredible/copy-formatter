@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "select-copy-paste-formatter",
+  "name": "Copy Formatter",
   "version": "1.0",
   "description": "Format copy pasted text",
   "permissions": ["contextMenus", "clipboardWrite", "scripting", "storage"],
