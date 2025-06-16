@@ -2,6 +2,10 @@
 
 _Format your copy-pasted text._
 
+## Download
+
+[Chrome Web Store - Copy Formatter](https://chromewebstore.google.com/detail/copy-formatter/aaohndppjeceojnoajddihklghhmokbe)
+
 ## Why did I create this?
 
 I use [Obsidian](https://obsidian.md/) and every time I want to create an external link, I have to:
