@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Copy Formatter",
-  "version": "1.0",
+  "version": "1.1",
   "description": "Format copy pasted text",
   "permissions": ["contextMenus", "clipboardWrite", "scripting", "storage"],
   "host_permissions": ["<all_urls>"],
