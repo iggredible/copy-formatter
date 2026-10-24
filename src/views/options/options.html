@@ -11,10 +11,21 @@
     
     <section>
       <h2>Menu Items</h2>
-      <p class="description">Each menu item has a name and a template. Use {selectedText}, {pageUrl}, and {pageTitle} as placeholders in your templates.</p>
+      <p class="description">Each menu item has a name, a template, and an optional keyboard shortcut. Use {selectedText}, {pageUrl}, and {pageTitle} as placeholders in your templates.</p>
       <div id="menuItems" class="items-list"></div>
       <button id="addMenuItem" class="btn btn-primary">+ Add Menu Item</button>
       <button id="resetToDefaults" class="btn btn-secondary">Reset to Defaults</button>
+    </section>
+
+    <section>
+      <h2>Keyboard Shortcuts</h2>
+      <p class="description">You can now assign a keyboard shortcut to any menu item. With text selected on a page, press the shortcut to copy it in that format without opening the menu.</p>
+      <ol class="description">
+        <li>Click <strong>Edit</strong> on a menu item, or <strong>+ Add Menu Item</strong>.</li>
+        <li>Click the <strong>Keyboard shortcut</strong> field and press the combination you want, for example <code>Ctrl + Option + C</code>. Press Backspace or click <strong>Clear</strong> to remove it.</li>
+        <li>Click <strong>Save</strong>.</li>
+      </ol>
+      <p class="description">A shortcut must include a modifier so it doesn't trigger while you type: Ctrl, Option or Cmd on macOS, and Ctrl or Alt on Windows and Linux. Two menu items can't share the same shortcut.</p>
     </section>
 
     <div id="status" class="status"></div>
