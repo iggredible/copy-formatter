@@ -1,6 +1,15 @@
 import { getMenuItems } from './storage.js';
 
-export async function createContextMenus() {
+// Rebuilds can be requested concurrently (e.g. onInstalled and storage.onChanged on a
+// fresh install). Run them one at a time, otherwise both create the same menu id.
+let pendingRebuild = Promise.resolve();
+
+export function createContextMenus() {
+  pendingRebuild = pendingRebuild.then(rebuildContextMenus);
+  return pendingRebuild;
+}
+
+async function rebuildContextMenus() {
   try {
     await new Promise((resolve) => {
       chrome.contextMenus.removeAll(() => {
@@ -42,11 +51,11 @@ export async function createContextMenus() {
             });
           });
         } catch (error) {
-          console.error(`Failed to create menu item ${item.id}:`, error);
+          console.error(`Failed to create menu item ${item.id}:`, error.message);
         }
       }
     }
   } catch (error) {
-    console.error('Failed to create context menus:', error);
+    console.error('Failed to create context menus:', error.message);
   }
 }
