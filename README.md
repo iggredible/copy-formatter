@@ -54,9 +54,10 @@ Copy Formatter comes with predefined templates. They're configured for [Obsidian
 
 ## Keyboard shortcuts
 
-You can assign a keyboard shortcut to any template and skip the menu entirely. Open "Configure", edit (or add) a template, click the "Keyboard shortcut" field and press the combination you want, e.g. `Ctrl + Option + C`. Then, with text selected on any page, pressing that combination copies the text using that template.
+You can assign a keyboard shortcut to any template and skip the menu entirely. Open "Configure", edit (or add) a template, click the "Keyboard shortcut" field and press the combination you want, e.g. `Ctrl + Option + C` or `Ctrl + Cmd + C` on a Mac. Then, with text selected on any page, pressing that combination copies the text using that template.
 
-- A shortcut must include at least one of Ctrl, Alt/Option or Cmd, so it never triggers while you type.
+- Modifier names follow your OS: Ctrl / Option / Cmd on macOS, Ctrl / Alt / Win on Windows, Ctrl / Alt / Super on Linux and others.
+- A shortcut must include a modifier so it never triggers while you type: Ctrl, Option or Cmd on macOS; Ctrl or Alt on Windows and Linux (the Win/Super key can be added to those, but not used on its own because the OS reserves it).
 - Two templates can't share the same shortcut.
 - If no text is selected, the key combination is left alone and behaves as usual.
 - Press Backspace in the field (or click "Clear") to remove a shortcut.

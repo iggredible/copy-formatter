@@ -1,5 +1,5 @@
 import { getMenuItems, setMenuItems } from '../../storage.js';
-import { shortcutFromEvent, isValidShortcut, shortcutsEqual, formatShortcut } from '../../shortcuts.js';
+import { shortcutFromEvent, isValidShortcut, shortcutRequirementHint, shortcutsEqual, formatShortcut } from '../../shortcuts.js';
 
 let currentMenuItems = [];
 let editingItem = null;
@@ -159,7 +159,7 @@ function handleShortcutKeydown(e) {
   if (!shortcut) return; // only a modifier is held so far
   
   if (!isValidShortcut(shortcut)) {
-    showShortcutError('Include Ctrl, Alt/Option or Cmd so it does not trigger while typing');
+    showShortcutError(shortcutRequirementHint());
     return;
   }
   
