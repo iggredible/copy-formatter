@@ -40,6 +40,17 @@
           </label>
           <textarea id="itemTemplate" rows="4"></textarea>
         </div>
+        <div class="form-group" id="shortcutGroup">
+          <label for="itemShortcut">
+            Keyboard shortcut
+            <span class="help-text">Optional. Click the field and press a combination that includes Ctrl, Alt/Option or Cmd.</span>
+          </label>
+          <div class="shortcut-row">
+            <input type="text" id="itemShortcut" readonly placeholder="Not set">
+            <button type="button" id="clearShortcut" class="btn btn-secondary btn-sm">Clear</button>
+          </div>
+          <div id="shortcutError" class="field-error"></div>
+        </div>
         <div class="form-group" id="enabledGroup">
           <label>
             <input type="checkbox" id="itemEnabled" checked>

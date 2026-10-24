@@ -179,6 +179,38 @@ section {
   box-sizing: border-box;
 }
 
+.shortcut-row {
+  display: flex;
+  gap: 8px;
+}
+
+.shortcut-row input[type="text"] {
+  cursor: pointer;
+}
+
+.shortcut-row input[type="text"]:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+.field-error {
+  display: none;
+  margin-top: 4px;
+  font-size: 12px;
+  color: #e74c3c;
+}
+
+.item-shortcut {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 2px 6px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: #f5f5f5;
+  font-size: 12px;
+  font-family: monospace;
+}
+
 .form-group input[type="checkbox"] {
   margin-right: 8px;
 }

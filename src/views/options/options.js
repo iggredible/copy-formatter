@@ -1,7 +1,9 @@
 import { getMenuItems, setMenuItems } from '../../storage.js';
+import { shortcutFromEvent, isValidShortcut, shortcutsEqual, formatShortcut } from '../../shortcuts.js';
 
 let currentMenuItems = [];
 let editingItem = null;
+let pendingShortcut = null;
 
 // Initialize
 document.addEventListener('DOMContentLoaded', async () => {
@@ -19,6 +21,8 @@ function setupEventListeners() {
   document.getElementById('cancelModal').addEventListener('click', hideModal);
   document.getElementById('modalForm').addEventListener('submit', handleSave);
   document.getElementById('resetToDefaults').addEventListener('click', resetToDefaults);
+  document.getElementById('itemShortcut').addEventListener('keydown', handleShortcutKeydown);
+  document.getElementById('clearShortcut').addEventListener('click', () => setPendingShortcut(null));
   
   // Close modal when clicking outside
   document.getElementById('modal').addEventListener('click', (e) => {
@@ -48,6 +52,7 @@ function createItemElement(item) {
       <div class="item-name">${item.name}</div>
       <div class="item-id">${item.id}</div>
       <div class="item-template">${escapeHtml(item.template)}</div>
+      ${item.shortcut ? `<span class="item-shortcut">${escapeHtml(formatShortcut(item.shortcut))}</span>` : ''}
     </div>
     <div class="item-actions">
       <button class="btn btn-sm edit-btn" data-id="${item.id}">Edit</button>
@@ -79,6 +84,8 @@ function showModal(item = null) {
   document.getElementById('templateGroup').style.display = 'block';
   document.getElementById('enabledGroup').style.display = 'block';
   
+  setPendingShortcut(item ? item.shortcut || null : null);
+
   // Fill form if editing
   if (item) {
     document.getElementById('itemId').value = item.id;
@@ -107,7 +114,18 @@ async function handleSave(e) {
   const template = document.getElementById('itemTemplate').value;
   const enabled = document.getElementById('itemEnabled').checked;
   
+  const conflict = currentMenuItems.find(item =>
+    item.id !== id && shortcutsEqual(item.shortcut, pendingShortcut)
+  );
+  if (conflict) {
+    showShortcutError(`Already used by "${conflict.name}"`);
+    return;
+  }
+  
   const menuItem = { id, name, template, enabled };
+  if (pendingShortcut) {
+    menuItem.shortcut = pendingShortcut;
+  }
   
   if (editingItem) {
     // Update existing
@@ -124,6 +142,40 @@ async function handleSave(e) {
   showStatus('Saved successfully!');
   hideModal();
   await loadData();
+}
+
+function handleShortcutKeydown(e) {
+  // Let Tab / Shift+Tab move focus out of the field
+  if (e.key === 'Tab') return;
+  
+  e.preventDefault();
+  
+  if ((e.key === 'Backspace' || e.key === 'Delete') && !e.ctrlKey && !e.altKey && !e.metaKey) {
+    setPendingShortcut(null);
+    return;
+  }
+  
+  const shortcut = shortcutFromEvent(e);
+  if (!shortcut) return; // only a modifier is held so far
+  
+  if (!isValidShortcut(shortcut)) {
+    showShortcutError('Include Ctrl, Alt/Option or Cmd so it does not trigger while typing');
+    return;
+  }
+  
+  setPendingShortcut(shortcut);
+}
+
+function setPendingShortcut(shortcut) {
+  pendingShortcut = shortcut;
+  document.getElementById('itemShortcut').value = formatShortcut(shortcut);
+  document.getElementById('shortcutError').style.display = 'none';
+}
+
+function showShortcutError(message) {
+  const error = document.getElementById('shortcutError');
+  error.textContent = message;
+  error.style.display = 'block';
 }
 
 function editItem(id) {

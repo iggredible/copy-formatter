@@ -1,5 +1,40 @@
 let isPopupOpen = false;
 let currentPopup = null;
+let shortcutItems = [];
+
+function loadShortcutItems(menuItems) {
+  shortcutItems = (menuItems || []).filter(item => item.enabled && item.shortcut);
+}
+
+chrome.storage.local.get(['menuItems'], (result) => loadShortcutItems(result.menuItems));
+
+chrome.storage.onChanged.addListener((changes, namespace) => {
+  if (namespace === 'local' && changes.menuItems) {
+    loadShortcutItems(changes.menuItems.newValue);
+  }
+});
+
+function matchesShortcut(event, shortcut) {
+  return event.code === shortcut.code &&
+    event.ctrlKey === Boolean(shortcut.ctrl) &&
+    event.altKey === Boolean(shortcut.alt) &&
+    event.shiftKey === Boolean(shortcut.shift) &&
+    event.metaKey === Boolean(shortcut.meta);
+}
+
+document.addEventListener('keydown', (event) => {
+  if (event.repeat || shortcutItems.length === 0) return;
+
+  const item = shortcutItems.find(candidate => matchesShortcut(event, candidate.shortcut));
+  if (!item) return;
+
+  const selectedText = window.getSelection().toString();
+  // Nothing selected: leave the key combination to the page / browser
+  if (!selectedText) return;
+
+  event.preventDefault();
+  handleMenuItemClick(item, selectedText);
+});
 
 document.addEventListener('keydown', async (event) => {
   if (event.key === '"' && !isPopupOpen) {

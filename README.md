@@ -52,6 +52,15 @@ Suppose that you're browsing a website: `https://daringfireball.net/projects/mar
 
 Copy Formatter comes with predefined templates. They're configured for [Obsidian syntax](https://help.obsidian.md/Editing+and+formatting/Obsidian+Flavored+Markdown), but you can add / edit / remove them as needed. To do that, click on the Copy Formatter extension icon, select "Configure". You should see a list of all the available templates.
 
+## Keyboard shortcuts
+
+You can assign a keyboard shortcut to any template and skip the menu entirely. Open "Configure", edit (or add) a template, click the "Keyboard shortcut" field and press the combination you want, e.g. `Ctrl + Option + C`. Then, with text selected on any page, pressing that combination copies the text using that template.
+
+- A shortcut must include at least one of Ctrl, Alt/Option or Cmd, so it never triggers while you type.
+- Two templates can't share the same shortcut.
+- If no text is selected, the key combination is left alone and behaves as usual.
+- Press Backspace in the field (or click "Clear") to remove a shortcut.
+
 # License 
 
 [MIT LICENSE](LICENSE)
